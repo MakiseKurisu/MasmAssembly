@@ -3,5 +3,5 @@
     "font_face" : "SimSun",
     "font_size" : 9,
     "translate_tabs_to_spaces" : false,
-    "color_scheme" : "Data/Installed Packages/MasmAssembly/Default.tmTheme"
+    "color_scheme" : "Package/MasmAssembly/Theme/Classic.tmTheme"
 }
