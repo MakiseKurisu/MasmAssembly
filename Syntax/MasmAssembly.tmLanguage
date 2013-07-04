@@ -287,7 +287,7 @@
 		</dict>
 	</array>
 	<key>scopeName</key>
-	<string>source.asm.jwasm</string>
+	<string>source.asm</string>
 	<key>uuid</key>
 	<string>801E0F36-8200-4FE7-BCBC-D371EE9B15C7</string>
 </dict>
