@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>asm</string>
+		<string>inc</string>
+	</array>
+	<key>name</key>
+	<string>MasmAssembly</string>
+	<key>patterns</key>
+	<array>
+		<? 单行注释 ?>
+		<? Single line comment?>
+		<dict>
+			<key>match</key>
+			<string>;.*$</string>
+			<key>name</key>
+			<string>comment.line</string>
+		</dict>
+		<? 注释块 ?>
+		<? Multi-line comment ?>
+		<dict>
+			<key>begin</key>
+			<string>comment\t\*</string>
+			<key>end</key>
+			<string>\t\*</string>
+			<key>name</key>
+			<string>comment.block</string>
+		</dict>
+		<? 数字 ?>
+		<? Number ?>
+		<dict>
+			<key>match</key>
+			<string>\b[0-9][0-9a-fA-F]*+h?\b</string>
+			<key>name</key>
+			<string>constant.numeric</string>
+		</dict>
+		<? 字符串匹配 ?>
+		<? Quoted string ?>
+		<dict>
+			<key>begin</key>
+			<string>["']</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.string.begin.masm</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>["']</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.string.end.masm</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>string.quoted</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#string_escaped_char</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#string_placeholder</string>
+				</dict>
+			</array>
+		</dict>
+		<? 包含文件 ?>
+		<? Include ?>
+		<dict>
+			<key>begin</key>
+			<string>^\s*((?i:includelib|include))</string>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>support.function</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>$</string>
+			<key>name</key>
+			<string>meta.preprocessor.masm.include</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>\s*</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin.jwasm</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>$</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end.jwasm</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>support.function</string>
+				</dict>
+			</array>
+		</dict>
+		<? 标签 ?>
+		<? Code label ?>
+		<dict>
+			<key>match</key>
+			<string>^.*:$</string>
+			<key>name</key>
+			<string>entity.name.tag</string>
+			<? 冒号后面不能有别的 ?>
+		</dict>
+		
+		<? Directives Reference ?>
+		
+		<? x64 ?>
+		<dict>
+			<key>match</key>
+			<string>(^|\s)\.((?i:ALLOCSTACK|ENDPROLOG|PUSHFRAME|PUSHREG|SAVEREG|SAVEXMM128|SETFRAME))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 条件汇编 ?>
+		<? Conditional Assembly ?>
+		<dict>
+			<key>match</key>
+			<string>(^|\s)((?i:ELSE|ELSEIF|ELSEIF2|IF|IF2|IFB|IFNB|IFDEF|IFNDEF|IFDIF|IFDIFI|IFE|IFIDN|IFIDNI|ENDIF))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 执行流控制 ?>
+		<? Conditional Control Flow ?>
+		<dict>
+			<key>match</key>
+			<string>(^|\s)\.((?i:BREAK|CONTINUE|ELSE|ELSEIF|ENDIF|ENDW|IF|REPEAT|UNTIL|UNTILCXZ|WHILE))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 条件错误 ?>
+		<? Conditional Error ?>
+		<dict>
+			<key>match</key>
+			<string>(^|\s)\.((?i:ERR|ERR2|ERRB|ERRDEF|ERRDIF|ERRDIFI|ERRE|ERRIDN|ERRIDNI|ERRNB|ERRNDEF|ERRNZ))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 变量声明 ?>
+		<? Data Allocation ?>
+		<dict>
+			<key>match</key>
+			<string>\b((?i:ALIGN|EVEN|LABEL|ORG|BYTE|SBYTE|DB|WORD|SWORD|DW|DWORD|SDWORD|DD|FWORD|QWORD|REAL4|REAL8|REAL10|TBYTE|MMWORD|XMMWORD|YMMWORD))\b</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 等值定义 ?>
+		<? Equates ?>
+		<dict>
+			<key>match</key>
+			<string>(^|\s)((?i:EQU|TEXTEQU))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 列表控制 ?>
+		<? Listing Control ?>
+		<dict>
+			<key>match</key>
+			<string>(^|\s)((?i:\.CREF|\.LIST|\.LISTALL|\.LISTIF|\.LISTMACRO|\.LISTMACROALL|\.NOCREF|\.NOLIST|\.NOLISTIF|\.NOLISTMACRO|PAGE|SUBTITLE|\.TFCOND|TITLE))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 宏 ?>
+		<? Macros ?>
+		<dict>
+			<key>match</key>
+			<string>(^|\s)((?i:ENDM|EXITM|GOTO|LOCAL|MACRO|PURGE))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 杂项 ?>
+		<? Miscellaneous ?>
+		<dict>
+			<key>match</key>
+			<string>(^|\s)((?i:ALIAS|ASSUME|COMMENT|ECHO|END|\.FPO|INCLUDE|INCLUDELIB|OPTION|POPCONTEXT|PUSHCONTEXT|\.RADIX|\.SAFESEH))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 过程 ?>
+		<? Procedures ?>
+		<dict>
+			<key>match</key>
+			<string>\b((?i:ENDP|INVOKE|PROC|PROTO|USES))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 处理器 ?>
+		<? Processor ?>
+		<dict>
+			<key>match</key>
+			<string>(^|\s)\.((?i:386|386P|387|486|486P|586|586P|686|686P|K3D|MMX|XMM))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 循环块 ?>
+		<? Repeat Blocks ?>
+		<dict>
+			<key>match</key>
+			<string>(^|\s)((?i:ENDM|FOR|FORC|GOTO|REPEAT|WHILE))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 可见域 ?>
+		<? Scope ?>
+		<dict>
+			<key>match</key>
+			<string>(^|\s)((?i:COMM|EXTERN|EXTERNDEF|INCLUDELIB|PUBLIC))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 段声明 ?>
+		<? Segment ?>
+		<dict>
+			<key>match</key>
+			<string>(^|\s)((?i:\.ALPHA|ASSUME|\.DOSSEG|END|ENDS|GROUP|SEGMENT|\.SEQ))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 简化段声明 ?>
+		<? Simplified Segment ?>
+		<dict>
+			<key>match</key>
+			<string>(^|\s)\.((?i:CODE|CONST|DATA|DATA\?|DOSSEG|EXIT|FARDATA|FARDATA\?|MODEL|STACK|STARTUP))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>	
+		<? 字符串 ?>
+		<? String ?>
+		<dict>
+			<key>match</key>
+			<string>(^|\s)((?i:CATSTR|INSTR|SIZESTR|SUBSTR))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 结构与记录 ?>
+		<? Structure and Record ?>
+		<dict>
+			<key>match</key>
+			<string>(^|\s)((?i:ENDS|RECORD|STRUCT|TYPEDEF|UNION))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		
+		<? Operators Reference ?>
+		<? 基本算术 ?>
+		<? Arithmetic ?>
+		<dict>
+			<key>match</key>
+			<string>^\s*((?i:MOD))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 杂项 ?>
+		<? Miscellaneous ?>
+		<dict>
+			<key>match</key>
+			<string>(^|\s)((?i:CARRY\?|DUP|OVERFLOW\?|PARITY\?|SIGN\?|ZERO\?))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 记录 ?>
+		<? Record ?>
+		<dict>
+			<key>match</key>
+			<string>^\s*((?i:MASK|WIDTH))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 关系 ?>
+		<? Relational ?>
+		<dict>
+			<key>match</key>
+			<string>(^|\s)((?i:EQ|GE|GT|LE|LT|NE))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 段 ?>
+		<? Segment ?>
+		<dict>
+			<key>match</key>
+			<string>^\s*((?i:IMAGEREL|LROFFSET|OFFSET|ADDR|SECTIONREL|SEG))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 类型 ?>
+		<? Type ?>
+		<dict>
+			<key>match</key>
+			<string>^\s*((?i:HIGH|HIGH32|HIGHWORD|LENGTH|LENGTHOF|LOW|LOW32|LOWWORD|OPATTR|PTR|SHORT|SIZE|SIZEOF|THIS|TYPE))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		
+		<? Symbols Reference ?>
+		<? 时间信息 ?>
+		<? Date and Time Information ?>
+		<dict>
+			<key>match</key>
+			<string>^\s*\@((?i:Date|Time))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 环境信息 ?>
+		<? Environment Information ?>
+		<dict>
+			<key>match</key>
+			<string>^\s*\@((?i:Cpu|Environ|Interface|Version))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 文件信息 ?>
+		<? File Information ?>
+		<dict>
+			<key>match</key>
+			<string>^\s*\@((?i:FileCur|FileName|Line))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 宏函数 ?>
+		<? Macro Functions ?>
+		<dict>
+			<key>match</key>
+			<string>^\s*\@((?i:CatStr|InStr|SizeStr|SubStr))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 杂项 ?>
+		<? Miscellaneous ?>
+		<dict>
+			<key>match</key>
+			<string>\@((?i:B|F))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 段信息 ?>
+		<? Segment Information ?>
+		<dict>
+			<key>match</key>
+			<string>^\s*\@((?i:code|CodeSize|CurSeg|data|DataSize|fardata|fardata\?|Model|stack|WordSize))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		
+		<?fpu指令?>
+		<dict>
+			<key>match</key>
+			<string>^\s*((?i:f2xm1|fabs|fadd|faddp|fbld|fbstp|fchs|fclex|fcom|fcomp|fcompp|fdecstp|fdisi|fdiv|fdivp|fdivr|fdivrp|feni|ffree|fiadd|ficom|ficomp|fidiv|fidivr|fild|fimul|fincstp|finit|fist|fistp|fisub|fisubr|fld|fld1|fldcw|fldenv|fldenvw|fldl2e|fldl2t|fldlg2|fldln2|fldpi|fldz|fmul|fmulp|fnclex|fndisi|fneni|fninit|fnop|fnsave|fnsavew|fnstcw|fnstenv|fnstenvw|fnstsw|fpatan|fprem|fptan|frndint|frstor|frstorw|fsave|fsavew|fscale|fsqrt|fst|fstcw|fstenv|fstenvw|fstp|fstsw|fsub|fsubp|fsubr|fsubrp|ftst|fwait|fxam|fxch|fxtract|fyl2x|fyl2xp1|fsetpm|fcos|fldenvd|fnsaved|fnstenvd|fprem1|frstord|fsaved|fsin|fsincos|fstenvd|fucom|fucomp|fucompp|fcomi|fcomip|fucomi|fucomip|ffreep|fcmovb|fcmove|fcmovbe|fcmovu|fcmovnb|fcmovne|fcmovnbe|fcmovnu))\s</string>
+			<key>name</key>
+			<string>keyword.control</string>
+		</dict>
+		<?字符串指令?>
+		<dict>
+			<key>match</key>
+			<string>^\s*((?i:cmpsb|cmpsw|cmpsd|cmpsq|movsb|movsw|movsd|movsq|scasb|scasw|scasd|scasq|stosb|stosw|stosd|stosq|lodsb|lodsw|lodsd|lodsq))\s</string>
+			<key>name</key>
+			<string>keyword.control</string>
+		</dict>
+		<?cmov指令?>
+		<dict>
+			<key>match</key>
+			<string>^\s*((?i:cmovo|cmovno|cmovb|cmovc|cmovnae|cmovae|cmovnb|cmovnc|cmove|cmovz|cmovne|cmovnz|cmovbe|cmovna|cmova|cmovnbe|cmovs|cmovns|cmovp|cmovpe|cmovnp|cmovpo|cmovl|cmovnge|cmovge|cmovnl|cmovle|cmovng|cmovg|cmovnle))\s</string>
+			<key>name</key>
+			<string>keyword.control</string>
+		</dict>
+		<?标志指令?>
+		<dict>
+			<key>match</key>
+			<string>^\s*((?i:clc|cld|stc|std|cmc|lahf|sahf))\s</string>
+			<key>name</key>
+			<string>keyword.control</string>
+		</dict>
+		<?前缀指令?>
+		<dict>
+			<key>match</key>
+			<string>^\s*((?i:lock|rep|repe|repz|repne|repnz))\s</string>
+			<key>name</key>
+			<string>keyword.control</string>
+		</dict>
+		<?堆栈指令?>
+		<dict>
+			<key>match</key>
+			<string>^\s*((?i:push|pop|pushad|popad|pushf|popf|pushfd|popfd|pushfq|popfq))\s</string>
+			<key>name</key>
+			<string>keyword.control</string>
+		</dict>
+		<? 内存操作指令 ?>
+		<? Memory operation instruction ?>
+		<dict>
+			<key>match</key>
+			<string>^\s*((?i:in|out|lea|mov|movsx|movsxd|movzx|xlatb|bound|xchg|xadd|cmpxchg|cmpxchg8b|cmpxchg16b))\s</string>
+			<key>name</key>
+			<string>keyword.control</string>
+		</dict>
+		<? 运算单元指令 ?>
+		<? Arithmetic instruction ?>
+		<dict>
+			<key>match</key>
+			<string>^\s*((?i:add|sub|adc|sbb|neg|cmp|inc|dec|and|or|xor|not|test|shl|shr|sal|sar|shld|shrd|rol|ror|rcl|rcr|cbw|cwd|cwde|cdq|cdqe|cqo|bsf|bsr|bt|btc|btr|bts|idiv|imul|div|mul|bswap|nop))\s</string>
+			<key>name</key>
+			<string>keyword.control</string>
+		</dict>
+		<? 控制流指令 ?>
+		<? Control flow instruction ?>
+		<dict>
+			<key>match</key>
+			<string>^\s*((?i:ja|jae|jb|jbe|jc|jcxz|je|jg|jge|jl|jle|jmp|jna|jnae|jnb|jnbe|jnc|jne|jng|jnge|jnl|jnle|jno|jnp|jns|jnz|jo|jp|jpe|jpo|js|jz|jcxz|jecxz|jrcxz|loop|loope|loopne|loopz|loopnz|call|ret))\s</string>
+			<key>name</key>
+			<string>keyword.control</string>
+		</dict>
+		<? BCD码指令 ?>
+		<? BCD instruction ?>
+		<dict>
+			<key>match</key>
+			<string>^\s*((?i:aaa|aad|aam|aas|daa|das))\s</string>
+			<key>name</key>
+			<string>keyword.control</string>
+		</dict>
+		<? 寄存器 ?>
+		<? Register ?>
+		<dict>
+			<key>match</key>
+			<string>\b((?i:eax|ebx|ecx|edx|esi|edi|ebp|esp|al|ah|bl|bh|cl|ch|dl|dh|ax|bx|cx|dx|sil|dil|bpl|si|di|bp|sp|rax|rcx|rdx|rbx|rsp|rbp|rsi|rdi|r8b|r9b|r10b|r11b|r12b|r13b|r14b|r15b|r8w|r9w|r10w|r11w|r12w|r13w|r14w|r15w|r8|r9|r10|r11|r12|r13|r14|r15|st0|st1|st2|st3|st4|st5|st6|st7|mm0|mm1|mm2|mm3|mm4|mm5|mm6|mm7|xmm0|xmm1|xmm2|xmm3|xmm4|xmm5|xmm6|xmm7|xmm8|xmm9|xmm10|xmm11|xmm12|xmm13|xmm14|xmm15|ymm0|ymm1|ymm2|ymm3|ymm4|ymm5|ymm6|ymm7|ymm8|ymm9|ymm10|ymm11|ymm12|ymm13|ymm14|ymm15|cs|es|ds|ss|fs|gs))\b</string>
+			<key>name</key>
+			<string>variable.language</string>
+			<? st0是非masm语法,但是st(0)不能被匹配,所以懒的管了 ?>
+		</dict>
+	</array>
+	<key>scopeName</key>
+	<string>source.asm</string>
+	<key>uuid</key>
+	<string>801E0F36-8200-4FE7-BCBC-D371EE9B15C7</string>
+</dict>
+</plist>

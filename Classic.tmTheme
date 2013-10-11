@@ -107,7 +107,7 @@
 			<key>name</key>
 			<string>Instrutcion</string>
 			<key>scope</key>
-			<string>instruction</string>
+			<string>keyword.control</string>
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
@@ -118,7 +118,7 @@
 			<key>name</key>
 			<string>Register</string>
 			<key>scope</key>
-			<string>instruction.register</string>
+			<string>variable.language</string>
 			<key>settings</key>
 			<dict>
 				<key>foreground</key>
@@ -166,22 +166,9 @@
 		</dict>
 		<dict>
 			<key>name</key>
-			<string>Function argument</string>
+			<string>Tag</string>
 			<key>scope</key>
-			<string>variable.parameter</string>
-			<key>settings</key>
-			<dict>
-				<key>fontStyle</key>
-				<string>italic</string>
-				<key>foreground</key>
-				<string>#FD971F</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>name</key>
-			<string>Label</string>
-			<key>scope</key>
-			<string>entity.name.label</string>
+			<string>entity.name.tag</string>
 			<key>settings</key>
 			<dict>
 				<key>fontStyle</key>
@@ -197,10 +184,8 @@
 			<string>support.function</string>
 			<key>settings</key>
 			<dict>
-				<key>fontStyle</key>
-				<string></string>
 				<key>foreground</key>
-				<string>#66D9EF</string>
+				<string>#0000FF</string>
 			</dict>
 		</dict>
 		<dict>
