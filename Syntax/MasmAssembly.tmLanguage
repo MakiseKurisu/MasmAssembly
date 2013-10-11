@@ -8,7 +8,7 @@
 		<string>inc</string>
 	</array>
 	<key>name</key>
-	<string>MasmAssembly</string>
+	<string>Assembly x86 (MASM)</string>
 	<key>patterns</key>
 	<array>
 		<?单行注释?>
