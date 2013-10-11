@@ -8,7 +8,7 @@
 		<string>inc</string>
 	</array>
 	<key>name</key>
-	<string>MasmAssembly</string>
+	<string>Assembly x86 (MASM compatible)</string>
 	<key>patterns</key>
 	<array>
 		<? 单行注释 ?>
@@ -78,7 +78,7 @@
 		<? Include ?>
 		<dict>
 			<key>begin</key>
-			<string>^\s*((?i:includelib|include))</string>
+			<string>^\s*((?i:includelib|include|incbin))</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -101,7 +101,7 @@
 						<key>0</key>
 						<dict>
 							<key>name</key>
-							<string>punctuation.definition.string.begin.jwasm</string>
+							<string>punctuation.definition.string.begin.masm</string>
 						</dict>
 					</dict>
 					<key>end</key>
@@ -111,7 +111,7 @@
 						<key>0</key>
 						<dict>
 							<key>name</key>
-							<string>punctuation.definition.string.end.jwasm</string>
+							<string>punctuation.definition.string.end.masm</string>
 						</dict>
 					</dict>
 					<key>name</key>
@@ -166,7 +166,7 @@
 		<? Data Allocation ?>
 		<dict>
 			<key>match</key>
-			<string>\b((?i:ALIGN|EVEN|LABEL|ORG|BYTE|SBYTE|DB|WORD|SWORD|DW|DWORD|SDWORD|DD|FWORD|QWORD|REAL4|REAL8|REAL10|TBYTE|MMWORD|XMMWORD|YMMWORD))\b</string>
+			<string>\b((?i:ALIGN|EVEN|LABEL|ORG|BYTE|SBYTE|DB|WORD|SWORD|DW|DWORD|SDWORD|DD|FWORD|DF|QWORD|DQ|TBYTE|DT|OWORD|REAL4|REAL8|REAL10|MMWORD|XMMWORD|YMMWORD))\b</string>
 			<key>name</key>
 			<string>support.function</string>
 		</dict>
@@ -214,7 +214,7 @@
 		<? Processor ?>
 		<dict>
 			<key>match</key>
-			<string>(^|\s)\.((?i:386|386P|387|486|486P|586|586P|686|686P|K3D|MMX|XMM))\s</string>
+			<string>(^|\s)\.((?i:8086|8087|186|286|286C|286P|287|386|386C|386P|387|486|486P|586|586P|686|686P|K3D|MMX|XMM|X64|X64P))\s</string>
 			<key>name</key>
 			<string>support.function</string>
 		</dict>
@@ -304,7 +304,7 @@
 		<? Segment ?>
 		<dict>
 			<key>match</key>
-			<string>^\s*((?i:IMAGEREL|LROFFSET|OFFSET|ADDR|SECTIONREL|SEG))\s</string>
+			<string>^\s*((?i:IMAGEREL|LROFFSET|OFFSET|SECTIONREL|SEG))\s</string>
 			<key>name</key>
 			<string>support.function</string>
 		</dict>
@@ -313,6 +313,14 @@
 		<dict>
 			<key>match</key>
 			<string>^\s*((?i:HIGH|HIGH32|HIGHWORD|LENGTH|LENGTHOF|LOW|LOW32|LOWWORD|OPATTR|PTR|SHORT|SIZE|SIZEOF|THIS|TYPE))\s</string>
+			<key>name</key>
+			<string>support.function</string>
+		</dict>
+		<? 保留字 ?>
+		<? Other Reserved Words ?>
+		<dict>
+			<key>match</key>
+			<string>^\s*((?i:ADDR|FLAT|VARARG|FRAME|C|SYSCALL\_|SYSCALL|STDCALL|PASCAL|FORTRAN|BASIC|FASTCALL))\s</string>
 			<key>name</key>
 			<string>support.function</string>
 		</dict>
