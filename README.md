@@ -10,7 +10,11 @@ Reference
 =========
 
 https://github.com/AkaiBureido/Sublime-Text-MASM-Language-Definition/
+
 Color Scheme - Default.sublime-package\monokai.tmTheme
+
 http://msdn.microsoft.com/en-us/library/afzk3475.aspx
+
 http://japheth.de/JWasm/Manual.html
+
 http://www.intel.com/content/www/us/en/processors/architectures-software-developer-manuals.html
