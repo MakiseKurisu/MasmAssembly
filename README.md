@@ -11,9 +11,13 @@ Reference
 
 https://github.com/AkaiBureido/Sublime-Text-MASM-Language-Definition/
 
+https://github.com/Shirk/Sublime-FASM-x86/
+
 Color Scheme - Default.sublime-package\monokai.tmTheme
 
 http://msdn.microsoft.com/en-us/library/afzk3475.aspx
+
+http://msdn.microsoft.com/en-us/library/ff561500.aspx
 
 http://japheth.de/JWasm/Manual.html
 
