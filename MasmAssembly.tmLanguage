@@ -121,10 +121,9 @@
 		<? Code label ?>
 		<dict>
 			<key>match</key>
-			<string>^.*:$</string>
+			<string>(\w+[:])</string>
 			<key>name</key>
 			<string>entity.name.tag</string>
-			<? 冒号后面不能有别的 ?>
 		</dict>
 		
 		<? Directives Reference ?>
