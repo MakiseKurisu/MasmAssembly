@@ -45,7 +45,7 @@
 			<key>comment</key>
 			<string>Decimal numbers</string>
 			<key>match</key>
-			<string>\b([0-9]+)\b</string>
+			<string>\b(\d+(d|D)?)\b</string>
 			<key>name</key>
 			<string>constant.numeric.dec</string>
 		</dict>
@@ -59,7 +59,7 @@
 				</dict>
 			</dict>
 			<key>comment</key>
-			<string>Exadecimal numbers format: FFh</string>
+			<string>Hexadecimal numbers format: FFh</string>
 			<key>match</key>
 			<string>\b([0-9][0-9a-fA-F]+(h|H))\b</string>
 			<key>name</key>
@@ -77,9 +77,25 @@
 			<key>comment</key>
 			<string>Binary numbers format: 100101b</string>
 			<key>match</key>
-			<string>\b([0-1]+b)\b</string>
+			<string>\b([0-1]+(b|B))\b</string>
 			<key>name</key>
 			<string>constant.numeric.bin</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>constant.numeric.oct</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>Octal numbers format: 76543210o</string>
+			<key>match</key>
+			<string>\b([0-7]+(o|O))\b</string>
+			<key>name</key>
+			<string>constant.numeric.oct</string>
 		</dict>
 		<? 字符串匹配 ?>
 		<? Quoted string ?>
